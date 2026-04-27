@@ -1,0 +1,29 @@
+services:
+  api:
+    build: .
+    image: sentinel-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_PATH: models/xgb_fraud.joblib
+      SQLITE_PATH: data/sentinel.db
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-anthropic.claude-3-5-sonnet-20241022-v2:0}
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    image: sentinel-api:latest
+    command: streamlit run src/dashboard/app.py --server.port=8501 --server.address=0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
