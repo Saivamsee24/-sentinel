@@ -12,7 +12,13 @@ env/
 # Data + models (do NOT commit)
 data/*
 !data/.gitkeep
+# Allow trained model artifacts (needed for deployment)
+# Don't commit raw model training intermediates, but DO commit the final artifacts
 models/*
+!models/xgb_fraud.joblib
+!models/feature_names.json
+!models/feature_schema.json
+!models/metrics.json
 !models/.gitkeep
 
 # Notebooks
