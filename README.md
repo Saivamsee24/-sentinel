@@ -69,26 +69,14 @@ docker compose up --build
 ```
 sentinel/
 ├── src/
-│   ├── training/      # Day 1-2: XGBoost training pipeline
-│   ├── api/           # Day 3: FastAPI inference service
-│   ├── agent/         # Day 4-5: LangGraph investigator
-│   └── dashboard/     # Day 7: Streamlit UI
-├── notebooks/         # Day 1: EDA
-├── tests/             # Day 7: Pytest suite
-├── .github/workflows/ # Day 7: CI/CD
+│   ├── training/     
+│   ├── api/           
+│   ├── agent/        
+│   └── dashboard/     
+├── notebooks/         
+├── tests/             
+├── .github/workflows/ 
 ├── Dockerfile
 ├── docker-compose.yml
 └── requirements.txt
 ```
-
-## Build Plan (7 Days)
-
-- **Day 1-2** — IEEE-CIS data + XGBoost baseline (target: 0.92+ AUC)
-- **Day 3** — FastAPI `/predict` endpoint, Dockerized
-- **Day 4-5** — LangGraph agent (enrich → analyze → explain) with SQLite tools
-- **Day 6** — Push to ECR, deploy to ECS Fargate, Bedrock for LLM
-- **Day 7** — GitHub Actions CI/CD, Streamlit dashboard, README polish, Loom demo
-
-## License
-
-MIT
