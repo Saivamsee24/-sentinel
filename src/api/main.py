@@ -76,6 +76,20 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root():
+    """Friendly root endpoint for browser checks."""
+    return {
+        "message": "Sentinel Fraud API is running.",
+        "docs": "/docs",
+        "endpoints": {
+            "health": "/health",
+            "predict": "/predict (POST)",
+            "investigate": "/investigate (POST)",
+        },
+    }
+
+
 def _build_feature_frame(txn: Transaction) -> pd.DataFrame:
     """Align incoming feature dict to the EXACT schema the model was trained on.
 
