@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: 220 25% 7%;
+  --foreground: 210 33% 98%;
+  --card: 223 25% 11%;
+  --card-foreground: 210 33% 98%;
+  --border: 220 16% 22%;
+  --input: 220 16% 18%;
+  --muted: 220 16% 20%;
+  --muted-foreground: 216 15% 70%;
+  --primary: 214 93% 58%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 200 88% 46%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 220 16% 24%;
+  --accent-foreground: 210 33% 98%;
+  --danger: 0 84% 60%;
+  --success: 142 71% 45%;
+  --warning: 38 92% 50%;
+  --radius: 0.85rem;
+}
+
+* {
+  @apply border-border;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+textarea {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
