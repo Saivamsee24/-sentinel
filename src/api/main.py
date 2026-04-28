@@ -12,6 +12,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from .schemas import HealthResponse, PredictionResponse, Transaction
 
@@ -22,6 +23,11 @@ MODEL_PATH = Path(os.getenv("MODEL_PATH", "models/xgb_fraud.joblib"))
 FEATURES_PATH = Path("models/feature_names.json")
 THRESHOLD = float(os.getenv("FRAUD_THRESHOLD", "0.5"))
 MODEL_VERSION = os.getenv("MODEL_VERSION", "v1.0")
+FRONTEND_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv("FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+    if origin.strip()
+]
 
 # Module-level state. Loaded once at startup.
 _state: dict = {"model": None, "features": None}
@@ -60,6 +66,13 @@ app = FastAPI(
     description="Real-time fraud scoring backed by XGBoost on IEEE-CIS.",
     version=MODEL_VERSION,
     lifespan=lifespan,
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=FRONTEND_ORIGINS or ["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
